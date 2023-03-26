@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://level/Level.gd" type="Script" id=1]
+[ext_resource path="res://level/Scene10.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/monogram.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://level/Scene1.gd" type="Script" id=4]
+[ext_resource path="res://level/Scene2.gd" type="Script" id=5]
+[ext_resource path="res://level/Scene11.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=2]
+resource_name = "flytextin"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("FlyText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "flytextout"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("FlyText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=1]
+size = 240
+font_data = ExtResource( 3 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Scene1" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Scene2" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="Scene3" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Scene4" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FlyTextAnimator" type="AnimationPlayer" parent="CanvasLayer"]
+anims/flytextin = SubResource( 2 )
+anims/flytextout = SubResource( 3 )
+
+[node name="FlyText" type="CenterContainer" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/FlyText"]
+margin_left = 150.0
+margin_top = 445.0
+margin_right = 1770.0
+margin_bottom = 635.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_colors/font_color = Color( 1, 0.309804, 0.00784314, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "THE BOSS IS COMING"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="scene_clear" from="Scene1" to="." method="_on_scene_clear"]
+[connection signal="scene_clear" from="Scene2" to="." method="_on_scene_clear"]
+[connection signal="scene_clear" from="Scene3" to="." method="_on_scene_clear"]
+[connection signal="scene_clear" from="Scene4" to="." method="_on_scene_clear"]

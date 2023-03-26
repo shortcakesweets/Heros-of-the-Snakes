@@ -1,0 +1,106 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://tscn/Snake.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tscn/MainGame.gd" type="Script" id=2]
+[ext_resource path="res://enemies/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://enemy_bullet/Enemy_Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://HUD/HUD_HP.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/bgm.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/fonts/monogram.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://HUD/HUD_Area.tscn" type="PackedScene" id=8]
+[ext_resource path="res://tscn/ScreenShake.tscn" type="PackedScene" id=9]
+[ext_resource path="res://tscn/Snake_Bullet.tscn" type="PackedScene" id=10]
+[ext_resource path="res://level/Level.tscn" type="PackedScene" id=11]
+[ext_resource path="res://BG/BG.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/ability_assets/ability_4.png" type="Texture" id=13]
+[ext_resource path="res://assets/ability_assets/ability_7.png" type="Texture" id=14]
+[ext_resource path="res://assets/ability_assets/ability_1.png" type="Texture" id=15]
+[ext_resource path="res://assets/ability_assets/ability_8.png" type="Texture" id=16]
+[ext_resource path="res://assets/ability_assets/ability_2.png" type="Texture" id=17]
+[ext_resource path="res://assets/ability_assets/ability_3.png" type="Texture" id=18]
+[ext_resource path="res://assets/ability_assets/ability_5.png" type="Texture" id=19]
+[ext_resource path="res://assets/ability_assets/ability_0.png" type="Texture" id=20]
+[ext_resource path="res://assets/ability_assets/ability_9.png" type="Texture" id=21]
+[ext_resource path="res://assets/ability_assets/ability_6.png" type="Texture" id=22]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 20 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 13 ), ExtResource( 19 ), ExtResource( 22 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 21 ) ],
+"loop": false,
+"name": "slice",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+size = 80
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 90
+font_data = ExtResource( 7 )
+
+[node name="MainGame" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Snake" parent="." groups=["movable"] instance=ExtResource( 1 )]
+
+[node name="Special_Ability" type="AnimatedSprite" parent="."]
+position = Vector2( 960, 540 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 3 )
+animation = "slice"
+speed_scale = 5.0
+
+[node name="Enemy" parent="." groups=["movable"] instance=ExtResource( 3 )]
+
+[node name="Enemy_Bullet" parent="." groups=["movable"] instance=ExtResource( 4 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -15.0
+autoplay = true
+
+[node name="HUD_HP" parent="." instance=ExtResource( 5 )]
+anchor_right = 1.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="HUD/HBoxContainer"]
+margin_top = 4.0
+margin_right = 240.0
+margin_bottom = 68.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = " Score: "
+valign = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD/HBoxContainer"]
+margin_left = 244.0
+margin_right = 278.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0.921569, 0, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "1"
+valign = 1
+
+[node name="HUD_Area" parent="." instance=ExtResource( 8 )]
+
+[node name="ScreenShake" parent="." instance=ExtResource( 9 )]
+
+[node name="Snake_Bullet" parent="." instance=ExtResource( 10 )]
+
+[node name="BG" parent="." instance=ExtResource( 12 )]
+
+[node name="Level" parent="." instance=ExtResource( 11 )]
+
+[connection signal="Snake_Death" from="Snake" to="." method="_on_Snake_Snake_Death"]
+[connection signal="use_special_ability" from="Snake" to="." method="_on_Snake_use_special_ability"]
+[connection signal="_on_Area_hit" from="Enemy_Bullet" to="." method="_on_Enemy_Bullet__on_Area_hit"]
+[connection signal="_on_Snake_hit" from="Enemy_Bullet" to="." method="_on_Enemy_Bullet__on_Snake_hit"]
+[connection signal="_on_Trail_hit" from="Enemy_Bullet" to="." method="_on_Enemy_Bullet__on_Trail_hit"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/Moth_Move_4.png" type="Texture" id=1]
+[ext_resource path="res://enemies/Moth.gd" type="Script" id=2]
+[ext_resource path="res://assets/Moth_Move_5.png" type="Texture" id=3]
+[ext_resource path="res://assets/Moth_Move_3.png" type="Texture" id=4]
+[ext_resource path="res://assets/Moth_Move_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/Moth_Move_2.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Moth" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Icon" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -1 )
+rotation = 0.00101793
+scale = Vector2( 1.3, 1.3 )
+frames = SubResource( 1 )
+playing = true

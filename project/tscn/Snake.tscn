@@ -1,0 +1,82 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://tscn/Snake.gd" type="Script" id=1]
+[ext_resource path="res://assets/adventurer-run-03.png" type="Texture" id=2]
+[ext_resource path="res://assets/adventurer-die-02.png" type="Texture" id=3]
+[ext_resource path="res://assets/adventurer-die-03.png" type="Texture" id=4]
+[ext_resource path="res://assets/adventurer-air-attack1-03.png" type="Texture" id=5]
+[ext_resource path="res://assets/adventurer-air-attack2-01.png" type="Texture" id=6]
+[ext_resource path="res://assets/adventurer-run-02.png" type="Texture" id=7]
+[ext_resource path="res://assets/adventurer-die-05.png" type="Texture" id=8]
+[ext_resource path="res://assets/adventurer-die-06.png" type="Texture" id=9]
+[ext_resource path="res://assets/adventurer-air-attack1-01.png" type="Texture" id=10]
+[ext_resource path="res://assets/adventurer-air-attack1-00.png" type="Texture" id=11]
+[ext_resource path="res://assets/adventurer-air-attack2-00.png" type="Texture" id=12]
+[ext_resource path="res://assets/adventurer-run-05.png" type="Texture" id=13]
+[ext_resource path="res://assets/adventurer-die-00.png" type="Texture" id=14]
+[ext_resource path="res://assets/adventurer-die-01.png" type="Texture" id=15]
+[ext_resource path="res://assets/adventurer-die-04.png" type="Texture" id=16]
+[ext_resource path="res://assets/adventurer-air-attack1-02.png" type="Texture" id=17]
+[ext_resource path="res://assets/adventurer-run-04.png" type="Texture" id=18]
+[ext_resource path="res://assets/adventurer-run-01.png" type="Texture" id=19]
+[ext_resource path="res://assets/adventurer-run-00.png" type="Texture" id=20]
+[ext_resource path="res://assets/ability_assets/charge_1.png" type="Texture" id=21]
+[ext_resource path="res://assets/ability_assets/charge_0.png" type="Texture" id=22]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 20 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 18 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "slide",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 5 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "birth",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 16 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "death",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 22 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "charge",
+"speed": 5.0
+} ]
+
+[node name="Snake" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Body" type="KinematicBody2D" parent="."]
+position = Vector2( 996, 896 )
+z_index = -1
+
+[node name="Icon" type="AnimatedSprite" parent="Body"]
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 1 )
+animation = "slide"
+
+[node name="Special_charge" type="AnimatedSprite" parent="Body"]
+scale = Vector2( 0.3, 0.3 )
+frames = SubResource( 2 )
+animation = "charge"
+speed_scale = 3.0
+playing = true
+
+[node name="HitBox" type="Polygon2D" parent="Body"]
+scale = Vector2( 0.233334, 0.16 )
+color = Color( 1, 0.156863, 0.137255, 0.443137 )
+polygon = PoolVector2Array( -8.57178, -6.25, 21.4282, -6.25, 21.4282, 31.25, -8.57178, 31.25 )
+
+[node name="Trail" type="Line2D" parent="."]
+z_index = -3
+
+[node name="S_Area" type="Polygon2D" parent="."]
+z_index = -2
+color = Color( 0.270588, 1, 0.984314, 1 )
+polygon = PoolVector2Array( 1032, 832, 1072, 896, 1032, 960, 960, 960, 920, 896, 960, 832 )

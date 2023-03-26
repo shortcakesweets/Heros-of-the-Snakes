@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://BG/SolidBG.tscn" type="PackedScene" id=1]
+[ext_resource path="res://BG/MovingBG.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Hos_SolidBG.jpg" type="Texture" id=3]
+[ext_resource path="res://BG/BG.gd" type="Script" id=4]
+[ext_resource path="res://assets/HoSMovingBG_Forest.png" type="Texture" id=5]
+
+[node name="BG" type="Node2D"]
+z_index = -20
+script = ExtResource( 4 )
+
+[node name="MovingBG" parent="." instance=ExtResource( 2 )]
+
+[node name="HoSMovingBgForest" type="Sprite" parent="MovingBG"]
+position = Vector2( 957, 540 )
+scale = Vector2( 2.219, 2.219 )
+z_index = -99
+texture = ExtResource( 5 )
+
+[node name="SolidBG" parent="." instance=ExtResource( 1 )]
+z_index = -100
+
+[node name="HosSolidBg" type="Sprite" parent="SolidBG"]
+position = Vector2( 958.331, 538.5 )
+scale = Vector2( 2.21926, 2.21926 )
+z_index = -100
+texture = ExtResource( 3 )

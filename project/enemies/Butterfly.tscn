@@ -1,0 +1,26 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/Butterfly_Move_3.png" type="Texture" id=1]
+[ext_resource path="res://enemies/Butterfly.gd" type="Script" id=2]
+[ext_resource path="res://assets/Butterfly_Move_4.png" type="Texture" id=3]
+[ext_resource path="res://assets/Butterfly_Move_1.png" type="Texture" id=4]
+[ext_resource path="res://assets/Butterfly_Move_2.png" type="Texture" id=5]
+[ext_resource path="res://assets/Butterfly_Move_5.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Butterfly" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Icon" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -1 )
+rotation = 0.00110296
+frames = SubResource( 1 )
+frame = 2
+playing = true
